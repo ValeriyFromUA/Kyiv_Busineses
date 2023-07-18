@@ -1,0 +1,21 @@
+[tool.poetry]
+name = "kyiv-buisnes"
+version = "0.1.0"
+description = ""
+authors = ["Valeriy Vasilenko <hitehnik132@gmail.com>"]
+readme = "README.md"
+packages = [{ include = "kyiv_buisnes" }]
+
+[tool.poetry.dependencies]
+python = "^3.8.10"
+django = "^4.2.3"
+flake8 = "^6.0.0"
+isort = "^5.12.0"
+pre-commit = "^3.3.3"
+python-dotenv = "^1.0.0"
+psycopg2 = "^2.9.6"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
