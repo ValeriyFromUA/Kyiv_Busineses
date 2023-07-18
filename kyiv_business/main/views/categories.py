@@ -1,23 +1,23 @@
-from django.views.generic import ListView
-from ..models import Client
-from itertools import chain
 import re
-from django.contrib.postgres.aggregates import ArrayAgg
-from django.contrib.postgres.fields import JSONField
-from django.db.models import F
 
-from ..utils import get_distinct_activities
+from django.views.generic import ListView
+from ..models import Activity
 
 
 class CategoriesView(ListView):
     template_name = "categories.html"
-    model = Client
+    model = Activity
     paginate_by = 100
+    context_object_name = "categories"
+    ordering = ["name"]
 
     def get_queryset(self):
-        return Client.objects.all()
+        queryset = super().get_queryset()
+        filtered_queryset = []
 
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context["categories"] = get_distinct_activities()
-        return context
+        for activity in queryset:
+            name = activity.name
+            if not re.search(r'[а-яіїєґ][А-ЯІЇЄҐ]', name):
+                filtered_queryset.append(activity)
+
+        return filtered_queryset
