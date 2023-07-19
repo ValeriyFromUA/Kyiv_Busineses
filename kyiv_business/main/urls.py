@@ -9,6 +9,7 @@ from .views import (
     CategoriesView,
     RegistrationView,
     AboutView,
+    CompanyView,
 
 )
 
@@ -18,6 +19,7 @@ urlpatterns = [
     path("categories/", CategoriesView.as_view(), name="categories"),
     path("categories/<str:pk>/", ActivityView.as_view(), name="categories"),
     path("all_companies/", CompaniesView.as_view(), name="companies"),
+    path("all_companies/<str:pk>", CompanyView.as_view(), name="companies"),
     path("login/", LoginView.as_view(), name="login"),
     path("logout/", LogoutView.as_view(), name="logout"),
     path("registration/", RegistrationView.as_view(), name="registration"),

@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+{% block title %}{{ company.name }}{% endblock %}
+{% block content %}
+<div class="container" style="color: white">
+    <h1>{{ company.name }}, {{ company.type }}</h1><br>
+    <p>Адреса:   {% if company.address %}{{ company.address }}{% else %} інформації про адресу немає{% endif %},</p>
+    <p>Телефон:  {% if company.phone %}{{ company.phone }}{% else %} інформації про номери телефонів немає{% endif %}, </p>
+    <p>EMAIL:    {% if company.email %}{{ company.email }}{% else %} інформації про електронну пошту немає{% endif %}</p>
+    <p>Сайт:     {% if company.url %}{{ company.url }}{% else %} інформації про сайт немає{% endif %}</p>
+    <br><h5>Опис:</h5><br>
+      <p>{% if company.description %}{{ company.description }}
+                {% else %}опис відсутній{% endif %}</p>
+    <br><h5> Сфери діяльності</h5><br>
+    <table class="table table-hover" style="color: white">
+  <thead>
+    <tr>
+    </tr>
+  </thead>
+  <tbody>
+  {% for activity in company.activities.all %}
+  {% if activity.name %}
+    <tr>
+      <td><a style="color: white" href="/categories/{{ activity.id }}">{{ activity.name }}</a></td>
+
+    </tr>
+  {% endif %}
+  {% endfor %}
+
+  </tbody>
+</table>
+</div>
+
+{% endblock %}

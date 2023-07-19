@@ -13,3 +13,10 @@ class ActivityView(ListView):
         activity = get_object_or_404(Activity, pk=activity_pk)
         companies = activity.companies.all()
         return companies
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        activity_pk = self.kwargs['pk']
+        activity = get_object_or_404(Activity, pk=activity_pk)
+        context['category_name'] = activity.name
+        return context

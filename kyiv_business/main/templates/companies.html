@@ -2,50 +2,66 @@
 {% block title %}All companies{% endblock %}
 {% block content %}
 
-<div class="container-fluid">
-    <table class="table">
+<div class="container-fluid w-90 mx-auto ml-5 mr-5" style="color: white">
+        {% if category_name %}
+        <br><h3>Компанії, що мають діяльність в сфері : {{ category_name }}</h3>
+    {% endif %}
+    <table class="table table-hover" style="color: white">
         <thead>
         <tr>
             <th scope="col">ID</th>
-            <th scope="col">Company name</th>
-            <th scope="col">Activity</th>
-            <th scope="col">Address</th>
-            <th scope="col">Phone</th>
-            <th scope="col">Email</th>
-            <th scope="col">Website</th>
-            <th scope="col">Description</th>
+            <th scope="col">Назва компанії/Діяльність</th>
+            <th scope="col">Опис</th>
+            <th scope="col">Адреса</th>
+            <th class="small-column" scope="col">Телефон</th>
+            <th class="small-column" scope="col">Email</th>
+            <th class="small-column" scope="col">Сайт</th>
+
         </tr>
         </thead>
         <tbody>
         {% for company in companies %}
-        <tr class="table">
+        <tr class="table table-striped" style="color: white">
             <td>{{ company.id }}</td>
-            <td>{{ company.name }}, {{ company.type }}</td>
-            <td>{{ company.activity }}</td>
-            <td>{{ company.address }}</td>
-            <td>{{ company.phone }}</td>
-            <td>{{ company.email }}</td>
-            <td>{{ company.url }}</td>
-            <td>{{ company.description|slice:":50" }}</td>
+            <td class="name-column"> <a style="color: white" href="/all_companies/{{ company.id }}"><b>{{ company.name }}, {{ company.type }}</b></a></td>
+            <td class="activity-column">{% for activity in company.activities.all %} {{ activity.name }} {% endfor %}</td>
+            <td>{% if company.description %}{{ company.description|truncatechars:150 }}
+                {% else %}опис відсутній{% endif %}
+            </td>
+            <td class="small-column">{% if company.address %}{{ company.address }}{% else %} інформації про адресу немає{% endif %}</td>
+            <td class="small-column">{% if company.phone %}{{ company.phone }}{% else %} інформації про номери телефонів немає{% endif %}</td>
+            <td class="small-column">{% if company.email %}{{ company.email }}{% else %} інформації про електронну пошту немає{% endif %}</td>
+            <td class="small-column">{% if company.url %}{{ company.url }}{% else %} інформації про сайт немає{% endif %}</td>
+
 
         </tr>
         {% endfor %}
         </tbody>
     </table>
-    <nav aria-label="Page navigation">
-        <ul class="pagination justify-content-center">
-            {% if page_obj.has_previous %}
+<nav aria-label="Page navigation">
+    <ul class="pagination justify-content-center">
+        {% if page_obj.has_previous %}
+        <li class="page-item">
+            <a class="btn btn-dark" href="?page={{ page_obj.previous_page_number }}" tabindex="-1"> << Попередня </a>
+        </li>
+        <li class="page-item"><a class="btn btn-dark" href="?page=1">В початок</a></li>
+        {% endif %}
+
+        <form method="get" class="form-inline" style="margin-left: 10px; margin-right: 10px;">
             <li class="page-item">
-                <a class="page-link" href="{{ page_obj.previous_page_number }}" tabindex="-1"> << Попередня </a>
+                <input type="number" class="form-control" name="page" min="1" max="{{ page_obj.paginator.num_pages }}" value="{{ page_obj.number }}">
             </li>
-            <li class="page-item"><a class="page-link" href="?page=1">В початок</a></li>
-            {% endif %}
-            {% if page_obj.has_next %}
-            <li class="page-item"><a class="page-link" href="?page={{ page_obj.paginator.num_pages }}">В кінець</a></li>
-            <li class="page-item"><a class="page-link" href="?page={{ page_obj.next_page_number }}">Наступна >> </a>
+            <li class="page-item">
+                <button type="submit" class="btn btn-dark">Перейти</button>
             </li>
-            {% endif %}
-        </ul>
-    </nav>
+        </form>
+
+        {% if page_obj.has_next %}
+        <li class="page-item"><a class="btn btn-dark" href="?page={{ page_obj.paginator.num_pages }}">В кінець</a></li>
+        <li class="page-item"><a class="btn btn-dark" href="?page={{ page_obj.next_page_number }}">Наступна >> </a>
+        </li>
+        {% endif %}
+    </ul>
+</nav>
 </div>
 {% endblock %}

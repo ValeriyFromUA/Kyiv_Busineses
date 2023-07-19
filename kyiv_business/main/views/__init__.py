@@ -6,3 +6,4 @@ from .login import LoginView
 from .logout import LogoutView
 from .registration import RegistrationView
 from .about import AboutView
+from .company import CompanyView

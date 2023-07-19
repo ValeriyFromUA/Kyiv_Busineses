@@ -21,12 +21,12 @@ class RegistrationView(View):
             return redirect("home")
         else:
             if "email" in form.errors:
-                messages.error(request, "Invalid email address")
+                messages.error(request, "Перевірте правильність введення електронної пошти")
             if "username" in form.errors:
-                messages.error(request, "Invalid username")
+                messages.error(request, "Перевірте Логін, можливо, варто спробувати інший...")
             if "password1" in form.errors:
-                messages.error(request, "Invalid password")
+                messages.error(request, "Пароль не відповідає вимогам")
             if "password2" in form.errors:
-                messages.error(request, "Passwords do not match")
+                messages.error(request, "Паролі не збігаються")
 
         return render(request, "registration.html", {"form": form})

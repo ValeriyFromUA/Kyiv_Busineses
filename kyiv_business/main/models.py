@@ -4,6 +4,7 @@ from django.db import models
 
 class User(AbstractUser):
     class Meta:
+        db_table = 'main_user'
         verbose_name = "Користувач"
         verbose_name_plural = "Користувачі"
 

@@ -1,0 +1,46 @@
+/* static/css/styles.css */
+body {
+    background-image: url('/static/img/main_back.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+}
+
+.activity-column {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 4;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: normal;
+  position: relative;
+  max-height: 110px;
+  width: 500px
+}
+
+.table-column::after {
+  content: "...";
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  padding-left: 5px;
+  background: linear-gradient(to right, rgba(0, 0, 0, 0));
+}
+
+.name-column {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 4;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: normal;
+  position: relative;
+  max-height: 110px;
+  width: 500px
+}
+
+.small-column {
+  max-height: 110px;
+  width: 70px
+}
+

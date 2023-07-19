@@ -1,4 +1,34 @@
 {% extends 'base.html' %}
-{% block title %}Main page{% endblock %}
+{% block title %}Головна сторінка{% endblock %}
+
 {% block content %}
+<br>
+<div class="container" style="color: white">
+    <div class="container-fluid w-90 mx-auto ml-5 mr-5">
+        <form method="post">
+            {% csrf_token %}
+            <div class="form-row">
+                <div class="col-md-5 mb-3">
+                    <label for="search_name">Пошук за назвою компанії:</label>
+                    <input type="text" class="form-control" id="search_name" name="search_name" value="{{ search_name }}">
+                </div>
+                <div class="col-md-2 mb-3">
+                    <button type="submit" class="btn btn-dark mt-4">Пошук компаній</button>
+                </div>
+            </div>
+        </form>
+        {% if companies %}
+        <h2>Результати пошуку компаній:</h2>
+        <ul>
+            {% for company in companies %}
+            <li><a style="color: white" href="/all_companies/{{ company.id }}">{{ company.name }}, {{ company.type }}</a></li>
+            {% endfor %}
+        </ul>
+        {% else %}
+        <br>
+        <p>Компанії, що відповідають Вашому запиту, будуть відображатися ТУТ.</p>
+        {% endif %}
+
+    </div>
+</div>
 {% endblock %}
