@@ -1,7 +1,8 @@
+from django.db.models import Q
 from django.views.generic import TemplateView
 from django.shortcuts import render
 
-from main.models import Company, Activity
+from main.models import Company
 
 
 class HomeView(TemplateView):
@@ -12,13 +13,9 @@ class HomeView(TemplateView):
 
     def post(self, request, *args, **kwargs):
         search_name = request.POST.get('search_name', '')
-        search_activity = request.POST.get('search_activity', '')
 
-        companies = Company.objects.all()
-        activities = Activity.objects.all()
-
-        if search_name:
-            companies = companies.filter(name__icontains=search_name)
+        companies = Company.objects.filter(
+            Q(name__icontains=search_name.lower()) | Q(name__icontains=search_name.upper()))
 
         context = {
             'companies': companies,
