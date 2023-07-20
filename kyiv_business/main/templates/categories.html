@@ -1,0 +1,60 @@
+{% extends 'base.html' %}
+{% block title %}Categories{% endblock %}
+{% block content %}
+<br>
+<div class="container">
+    <form method="get" class="form-inline mb-4">
+        <div class="form-group">
+            <input type="text" class="form-control" name="search" placeholder="Фільтрувати за назвою">
+        </div>
+        <button type="submit" class="btn btn-dark ml-2">Фільтрувати</button>
+        <a href="?search=" class="btn btn-dark ml-2">Скинути фільтри</a>
+    </form>
+    <table class="table table-hover" style="color: white">
+        <thead>
+        <tr>
+            <th scope="col">ID</th>
+            <th scope="col">Категорія</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for category in categories %}
+            {% if category.name %}
+                <tr>
+                    <th scope="row">{{ category.id }}</th>
+                    <td><a style="color: white" href="/categories/{{ category.id }}">{{ category.name }}</a></td>
+                </tr>
+            {% endif %}
+        {% endfor %}
+        </tbody>
+    </table>
+    <br>
+</div>
+
+<br>
+<nav aria-label="Page navigation">
+    <ul class="pagination justify-content-center">
+        {% if page_obj.has_previous %}
+        <li class="page-item">
+            <a class="btn btn-dark" href="?page={{ page_obj.previous_page_number }}" tabindex="-1"> << Попередня </a>
+        </li>
+        <li class="page-item"><a class="btn btn-dark" href="?page=1">В початок</a></li>
+        {% endif %}
+
+        <form method="get" class="form-inline" style="margin-left: 10px; margin-right: 10px;">
+            <li class="page-item">
+                <input type="number" class="form-control" name="page" min="1" max="{{ page_obj.paginator.num_pages }}" value="{{ page_obj.number }}">
+            </li>
+            <li class="page-item">
+                <button type="submit" class="btn btn-dark">Перейти</button>
+            </li>
+        </form>
+
+        {% if page_obj.has_next %}
+        <li class="page-item"><a class="btn btn-dark" href="?page={{ page_obj.paginator.num_pages }}">В кінець</a></li>
+        <li class="page-item"><a class="btn btn-dark" href="?page={{ page_obj.next_page_number }}">Наступна >> </a>
+        </li>
+        {% endif %}
+    </ul>
+</nav>
+{% endblock %}

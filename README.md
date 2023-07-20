@@ -23,7 +23,8 @@ To use the application, follow these steps:
 1. Clone the code using `git clone ...` or download it as a zip archive.
 2. Create a virtual environment and install dependencies (use Poetry).
 3. Create a `.env` file based on the `env_example` file and enter your own data.
-4. Run the server.
+4. use ```python manage.py makemigrations``` and ```python manage.py migrate``` for connect DB with Django-app
+5. Run the server.
 
 **Important**:
 The application uses the database from [scrap_UA-Kyiv](https://github.com/ValeriyFromUA/scrap_UA-Kyiv.git) and does not
